@@ -1,0 +1,5 @@
+/data/bundles/*
+.gondler
+*.swp
+/data/coordinators/*
+/data/workflows/*

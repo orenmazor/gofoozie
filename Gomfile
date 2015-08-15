@@ -1,0 +1,7 @@
+itself 'github.com/orenmazor/gofoozie'
+
+autodetect
+
+gom 'github.com/go-martini/martini'
+gom 'github.com/Sirupsen/logrus'
+gom 'github.com/martini-contrib/render'
