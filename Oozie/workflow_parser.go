@@ -1,4 +1,4 @@
-package oozie_xml_parsing
+package oozie
 
 func LoadWorkflow(path string) {
 }
