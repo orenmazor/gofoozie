@@ -23,7 +23,7 @@ func StartRunningJobs() {
 			job.Execute()
 		}
 
-		time.Sleep(1 * time.Minute)
+		time.Sleep(100 * time.Minute)
 	}
 }
 
