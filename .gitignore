@@ -1,4 +1,5 @@
 /data/bundles/*
+gofoozie
 .gondler
 *.swp
 /data/coordinators/*
