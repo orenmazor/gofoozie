@@ -3,21 +3,32 @@ package main
 import "fmt"
 import "io/ioutil"
 import "./Oozie"
+import "time"
+
+var jobs []*oozie.ExecutableWorkflow
 
 func DetectJobs() {
 	bundlePath := "./data/bundles"
 	bundle_files, err := ioutil.ReadDir(bundlePath)
 	check(err)
 
-	jobs := oozie.LoadBundles(bundle_files)
+	jobs = oozie.LoadBundles(bundle_files)
 
 	log.Info(fmt.Sprintf("Scheduled up %d jobs", len(jobs)))
 }
-func AddOozieCoordinator(bundleName string, coordinatorName string, appPath string) {
-	log.Info(fmt.Sprintf("Adding another job for %s", appPath))
-	/* log.Info("hello") */
+
+func StartRunningJobs() {
+	log.Info("Starting Job Runner")
+	for {
+		for _, job := range jobs {
+			job.Execute()
+		}
+
+		time.Sleep(1 * time.Minute)
+	}
 }
 
 func StartOozie() {
 	DetectJobs()
+	StartRunningJobs()
 }

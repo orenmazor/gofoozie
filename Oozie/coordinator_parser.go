@@ -5,7 +5,7 @@ import "fmt"
 import "io/ioutil"
 import "encoding/xml"
 
-func LoadCoordinator(bundleName string, coordinatorName string, path string) []Workflow {
+func LoadCoordinator(bundleName string, coordinatorName string, path string) *ExecutableWorkflow {
 	xmlFile, err := os.Open(fmt.Sprintf("%s/coordinator.xml", path))
 	check(err)
 	defer xmlFile.Close()
@@ -15,7 +15,6 @@ func LoadCoordinator(bundleName string, coordinatorName string, path string) []W
 
 	var q CoordinatorApp
 	xml.Unmarshal(file, &q)
-	log.Info(fmt.Sprintf("Found %s::%s with %d workflows", bundleName, q.Name, len(q.Action.Workflows)))
 
-	return make([]Workflow, 3, 3)
+	return LoadWorkflow(q.Name, q.Action.Workflow.Path.Path)
 }
