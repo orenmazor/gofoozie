@@ -16,5 +16,5 @@ func LoadCoordinator(bundleName string, coordinatorName string, path string) *Ex
 	var q CoordinatorApp
 	xml.Unmarshal(file, &q)
 
-	return LoadWorkflow(q.Name, q.Action.Workflow.Path.Path)
+	return CreateExecutableWorkflow(q.Name, q.Action.Workflow.Path.Path)
 }

@@ -12,7 +12,7 @@ func (wf ExecutableWorkflow) Execute() {
 	PostNewWorkflow(wf)
 }
 
-func (wf ExecutableWorkflow) BuildConfiguration() string {
+func (wf ExecutableWorkflow) BuildConfiguration() []byte {
 	name1 := "user.name"
 	name2 := "oozie.wf.application.path"
 	value1 := "oozie"
@@ -24,20 +24,20 @@ func (wf ExecutableWorkflow) BuildConfiguration() string {
 	name = Name{Content: name2}
 	value = Value{Content: value2}
 	properties[1] = Property{Name: name, Value: value}
-	config := Configuration{Properties: properties}
+	config := configuration{Properties: properties}
 
-	xmlstr, err := xml.Marshal(config)
+	xmlbuffer, err := xml.Marshal(config)
 	check(err)
 
-	return string(xmlstr)
+	return xmlbuffer
 }
 
 func (wf ExecutableWorkflow) Submit() {
 }
 
-func CreateExecutableWorkflow(name string, xmlDoc WorkflowApp) *ExecutableWorkflow {
+func CreateExecutableWorkflow(name string, wfPath string) *ExecutableWorkflow {
 	wf := new(ExecutableWorkflow)
 	wf.Name = name
-	wf.Path = "asdf"
+	wf.Path = wfPath
 	return wf
 }

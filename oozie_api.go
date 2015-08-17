@@ -1,12 +1,14 @@
 package main
 
 import "net/http"
+import "bytes"
 import "fmt"
 import "io/ioutil"
 import "encoding/json"
+import "os"
 
 func GetOozieServiceVersion() {
-	resp, err := http.Get("http://hadoop-misc4.chi.shopify.com:11000/oozie/v1/admin/build-version")
+	resp, err := http.Get(fmt.Sprintf("%s/oozie/v1/admin/build-version", OozieURL()))
 	check(err)
 
 	defer resp.Body.Close()
@@ -20,5 +22,16 @@ func GetOozieServiceVersion() {
 
 func PostNewWorkflow(wf ExecutableWorkflow) {
 	log.Info(fmt.Sprintf("Submitting workflow %s", wf.Name))
-	log.Info(wf.BuildConfiguration())
+	config := bytes.NewBuffer(wf.BuildConfiguration())
+	resp, err := http.Post(fmt.Sprintf("%s/oozie/v1/jobs?action=start", OozieURL()), "application/xml", config)
+	check(err)
+
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	check(err)
+	log.Info(string(body))
+}
+
+func OozieURL() string {
+	return os.Getenv("OOZIE_URL")
 }
