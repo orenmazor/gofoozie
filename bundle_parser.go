@@ -1,12 +1,9 @@
-package oozie
+package main
 
-import "github.com/Sirupsen/logrus"
 import "os"
 import "fmt"
 import "io/ioutil"
 import "encoding/xml"
-
-var log = logrus.New()
 
 func LoadBundles(files []os.FileInfo) []*ExecutableWorkflow {
 	bundleJobs := make([]*ExecutableWorkflow, 0)

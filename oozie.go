@@ -2,17 +2,16 @@ package main
 
 import "fmt"
 import "io/ioutil"
-import "./Oozie"
 import "time"
 
-var jobs []*oozie.ExecutableWorkflow
+var jobs []*ExecutableWorkflow
 
 func DetectJobs() {
 	bundlePath := "./data/bundles"
 	bundle_files, err := ioutil.ReadDir(bundlePath)
 	check(err)
 
-	jobs = oozie.LoadBundles(bundle_files)
+	jobs = LoadBundles(bundle_files)
 
 	log.Info(fmt.Sprintf("Scheduled up %d jobs", len(jobs)))
 }

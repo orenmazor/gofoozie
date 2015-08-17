@@ -1,4 +1,4 @@
-package oozie
+package main
 
 import "os"
 import "fmt"
