@@ -1,7 +1,5 @@
 package main
 
-import "encoding/xml"
-
 type AppPath struct {
 	Path string `xml:",chardata"`
 }
