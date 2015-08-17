@@ -18,12 +18,11 @@ func DetectJobs() {
 
 func StartRunningJobs() {
 	log.Info("Starting Job Runner")
-	for {
+	c := time.Tick(1 * time.Minute)
+	for now := range c {
 		for _, job := range jobs {
 			job.Execute()
 		}
-
-		time.Sleep(100 * time.Minute)
 	}
 }
 
