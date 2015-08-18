@@ -1,5 +1,7 @@
 package main
 
+import "encoding/xml"
+
 type AppPath struct {
 	Path string `xml:",chardata"`
 }
@@ -44,19 +46,12 @@ type WorkflowApp struct {
 	Actions []WorkflowAction `xml:"action"`
 }
 
-type configuration struct {
+type Configuration struct {
+	XMLName    xml.Name   `xml:"configuration"`
 	Properties []Property `xml:"property"`
 }
 
 type Property struct {
-	Name  Name  `xml:"name"`
-	Value Value `xml:"value"`
-}
-
-type Name struct {
-	Content string `xml:",chardata"`
-}
-
-type Value struct {
-	Content string `xml:",chardata"`
+	Name  string `xml:"name"`
+	Value string `xml:"value"`
 }

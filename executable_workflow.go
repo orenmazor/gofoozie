@@ -13,20 +13,9 @@ func (wf ExecutableWorkflow) Execute() {
 }
 
 func (wf ExecutableWorkflow) BuildConfiguration() []byte {
-	name1 := "user.name"
-	name2 := "oozie.wf.application.path"
-	value1 := "oozie"
-	value2 := wf.Path
-	properties := make([]Property, 2)
-	name := Name{Content: name1}
-	value := Value{Content: value1}
-	properties[0] = Property{Name: name, Value: value}
-	name = Name{Content: name2}
-	value = Value{Content: value2}
-	properties[1] = Property{Name: name, Value: value}
-	config := configuration{Properties: properties}
-
-	xmlbuffer, err := xml.Marshal(config)
+	username := Property{"user.name", "oozie"}
+	wfpath := Property{"oozie.wf.application.path", wf.Path}
+	xmlbuffer, err := xml.Marshal(Configuration{Properties: []Property{username, wfpath}})
 	check(err)
 
 	return xmlbuffer
